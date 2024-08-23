@@ -22,6 +22,7 @@ const RegistrationPage = () => {
     return (
         <>
             <Form onSubmit={handleSubmit}/>
+
         </>
     );
 };
