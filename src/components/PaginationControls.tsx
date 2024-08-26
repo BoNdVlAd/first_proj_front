@@ -17,7 +17,6 @@ interface PaginationControlsProps {
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({ pagination, onPageChange }) => {
     const { currentPage, lastPage } = pagination;
-    console.log(pagination)
 
     return (
         <div>

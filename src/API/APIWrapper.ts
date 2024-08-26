@@ -9,7 +9,7 @@ const APIWrapper = () => {
         }
         url = process.env.REACT_APP_BACKEND_URL + url;
 
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('access_token')) {
             config = {...config, headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const APIWrapper = () => {
         const data = await response.json();
 
         if (typeof data?.access_token == 'string' && data?.access_token.length > 0) {
-            localStorage.setItem('token', data.access_token)
+            localStorage.setItem('access_token', data.access_token)
         }
 
         return {data: data, status: response.status}
