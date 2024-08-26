@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import {Link} from "react-router-dom";
 
 const FormContainer = styled.form`
     max-width: 500px;
@@ -44,11 +45,27 @@ const FormButton = styled.button`
     cursor: pointer;
 `;
 
-interface LoginFormProps {
+const TextLink = styled.p`
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+
+    a {
+        color: #88D66C;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
+interface RegisterFormProps {
     onSubmit: (username: string, useremail: string, password: string, ) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
     const [username, setUsername] = useState('');
     const [useremail, setUseremail] = useState('');
     const [password, setPassword] = useState('');
@@ -80,7 +97,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <FormButton type="submit">Log in</FormButton>
+                <FormButton type="submit">Register</FormButton>
+                <Link to="/auth\login">already have an account?</Link>
             </FormBody>
         </FormContainer>
     );
@@ -88,4 +106,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
 
 
-export default LoginForm;
+export default RegisterForm;

@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MenuPage from "./pages/MenuPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "auth/registration",
                 element: <RegistrationPage />,
+            },
+            {
+                path: "menu",
+                element: <MenuPage />,
             },
         ],
     },
