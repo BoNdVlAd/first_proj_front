@@ -2,6 +2,7 @@ import React from 'react';
 import Header from "../components/Header";
 import ItemsWrapper from "../components/ItemsWrapper";
 import APIWrapper from "../API/APIWrapper";
+import PaginationControls from "../components/PaginationControls";
 
 interface RecipeItem {
     id: number;
@@ -32,11 +33,18 @@ const MenuPage = () => {
     const api = APIWrapper()
 
     const [dishes, setDishes] = React.useState<Dish[]>([])
-    const [pagination, setPagination] = React.useState<Pagination[]>([])
+    const [pagination, setPagination] = React.useState<Pagination>({
+        total: 0,
+        perPage: 1,
+        currentPage: 1,
+        lastPage: 0,
+        from: 0,
+        to: 0,
+    })
 
     const fetchDishes = async () => {
         try {
-            const data = await api.get('dishes')
+            const data = await api.get(`dishes?page=${pagination.currentPage}`)
             setDishes(data.data.data);
             setPagination(data.data.pagination)
         } catch (e) {
@@ -44,15 +52,10 @@ const MenuPage = () => {
         }
     }
 
-
     React.useEffect(() => {
         fetchDishes();
 
-    }, []);
-
-    console.log(dishes);
-    console.log(pagination);
-
+    }, [pagination.currentPage]);
     return (
         <>
             <Header/>
@@ -61,6 +64,10 @@ const MenuPage = () => {
                     <p key={dish.title}>{dish.title}</p>
                 ))}
             </ItemsWrapper>
+            <PaginationControls
+                pagination={pagination}
+                onPageChange={(page: any) => setPagination({ ...pagination, currentPage: page })}
+            />
         </>
     );
 };

@@ -19,9 +19,8 @@ const APIWrapper = () => {
                 }}
         }
         const request = new Request(url, config);
-
         const response = await fetch(request);
-        const data = await response.json()
+        const data = await response.json();
 
         if (typeof data?.access_token == 'string' && data?.access_token.length > 0) {
             localStorage.setItem('token', data.access_token)

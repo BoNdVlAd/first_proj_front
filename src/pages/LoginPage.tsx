@@ -8,14 +8,16 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (useremail: string, password: string) => {
-        // const body = {
-        //     email: useremail,
-        //     password
-        // }
-        // const response = await api.post('http://first_proj.test/api/auth/login', body);
-        // console.log(response);
-        //
-        // navigate('/menu');
+        try {
+            const body = {
+                email: useremail,
+                password
+            }
+            await api.post('auth/login', body);
+            navigate('/menu');
+        } catch (e) {
+            console.log("Error: ", e)
+        }
     }
 
     return (

@@ -14,8 +14,7 @@ const RegistrationPage: React.FC = () => {
                 email: useremail,
                 password
             };
-            const response = await api.post('users', body);
-            console.log(response);
+            await api.post('users', body);
             navigate('/menu');
         } catch (e) {
             console.log("Error: ", e)
