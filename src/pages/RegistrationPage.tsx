@@ -14,8 +14,12 @@ const RegistrationPage: React.FC = () => {
                 email: useremail,
                 password
             };
-            await api.post('users', body);
-            navigate('/menu');
+            const response = await api.post('users', body);
+            if (response.status === 200) {
+                navigate('/menu');
+            } else {
+                console.log("Login failed: ", response);
+            }
         } catch (e) {
             console.log("Error: ", e)
         }

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from "../components/Header";
 import ItemsWrapper from "../components/ItemsWrapper";
 import APIWrapper from "../API/APIWrapper";
 import PaginationControls from "../components/PaginationControls";
+import Sort from "../components/Sort";
+
 
 interface RecipeItem {
     id: number;
@@ -32,7 +34,10 @@ interface Pagination {
 const MenuPage = () => {
     const api = APIWrapper()
 
+    const [searchValue, setSearchValue] = useState<string>('')
     const [dishes, setDishes] = React.useState<Dish[]>([])
+    const [sortField, setSortField] = React.useState<string>('');
+    const [sortBy, setSortBy] = React.useState<string>('');
     const [pagination, setPagination] = React.useState<Pagination>({
         total: 0,
         perPage: 1,
@@ -44,9 +49,10 @@ const MenuPage = () => {
 
     const fetchDishes = async () => {
         try {
-            const data = await api.get(`dishes?page=${pagination.currentPage}`)
+            const data = await api.get(`dishes?page=${pagination.currentPage}&title=${searchValue}&sortField=${sortField}&sortBy=${sortBy}`)
             setDishes(data.data.data);
             setPagination(data.data.pagination)
+
         } catch (e) {
             console.log("Error: ", e)
         }
@@ -54,12 +60,15 @@ const MenuPage = () => {
 
     React.useEffect(() => {
         fetchDishes();
+    }, [pagination.currentPage, searchValue]);
 
-    }, [pagination.currentPage]);
+    console.log(sortField, sortBy)
+
     return (
         <>
-            <Header/>
+            <Header search={searchValue} setSearch={setSearchValue}/>
             <ItemsWrapper>
+                <Sort setSortField={setSortField} setSortBy={setSortBy} fetchDishes={fetchDishes} />
                 {dishes.map((dish) => (
                     <p key={dish.title}>{dish.title}</p>
                 ))}

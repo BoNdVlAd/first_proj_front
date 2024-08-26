@@ -9,6 +9,8 @@ import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MenuPage from "./pages/MenuPage";
+import PrivateRoute from "./pages/PrivateRouter";
+import {AuthProvider} from "./pages/AuthProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,7 +36,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "menu",
-                element: <MenuPage />,
+                element: (
+                    <PrivateRoute>
+                        <MenuPage />
+                    </PrivateRoute>
+                ),
             },
         ],
     },
@@ -42,9 +48,11 @@ const router = createBrowserRouter([
 
 root.render(
     <React.StrictMode>
-        <Suspense fallback={<div>...Loading</div>}>
-            <RouterProvider router={router} />
-        </Suspense>
+        <AuthProvider>
+            <Suspense fallback={<div>...Loading</div>}>
+                <RouterProvider router={router} />
+            </Suspense>
+        </AuthProvider>
     </React.StrictMode>,
 );
 
