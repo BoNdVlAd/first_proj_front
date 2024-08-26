@@ -1,28 +1,29 @@
 import React from 'react';
-import Form from "../components/Form";
+import APIWrapper from "../API/APIWrapper";
+import FormRegister from "../components/FormRegister";
+import {useNavigate} from "react-router-dom";
 
-const RegistrationPage = () => {
+const RegistrationPage: React.FC = () => {
+    const api = APIWrapper();
+    const navigate = useNavigate();
 
     const handleSubmit = async (username: string, useremail: string, password: string) => {
-        const response = await fetch('http://first_proj.test/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name : username, email : useremail, password: password }),
-        });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Register successful:', data);
-        } else {
-            console.error('Register failed');
+        try {
+            const body = {
+                name: username,
+                email: useremail,
+                password
+            };
+            await api.post('users', body);
+            navigate('/menu');
+        } catch (e) {
+            console.log("Error: ", e)
         }
     }
 
     return (
         <>
-            <Form onSubmit={handleSubmit}/>
-
+            <FormRegister onSubmit={handleSubmit}/>
         </>
     );
 };
