@@ -4,7 +4,8 @@ import ItemsWrapper from "../components/ItemsWrapper";
 import APIWrapper from "../API/APIWrapper";
 import PaginationControls from "../components/PaginationControls";
 import Sort from "../components/Sort";
-
+import DishItem from "../components/DishItem";
+import {styled} from "styled-components";
 
 interface RecipeItem {
     id: number;
@@ -36,8 +37,8 @@ const MenuPage = () => {
 
     const [searchValue, setSearchValue] = useState<string>('')
     const [dishes, setDishes] = React.useState<Dish[]>([])
-    const [sortField, setSortField] = React.useState<string>('');
-    const [sortBy, setSortBy] = React.useState<string>('');
+    const [sortField, setSortField] = React.useState<string>('title');
+    const [sortBy, setSortBy] = React.useState<string>('asc');
     const [pagination, setPagination] = React.useState<Pagination>({
         total: 0,
         perPage: 1,
@@ -69,9 +70,11 @@ const MenuPage = () => {
             <Header search={searchValue} setSearch={setSearchValue}/>
             <ItemsWrapper>
                 <Sort setSortField={setSortField} setSortBy={setSortBy} fetchDishes={fetchDishes} />
+                <DishesCards>
                 {dishes.map((dish) => (
-                    <p key={dish.title}>{dish.title}</p>
+                    <DishItem dish={dish} />
                 ))}
+                </DishesCards>
             </ItemsWrapper>
             <PaginationControls
                 pagination={pagination}
@@ -82,3 +85,13 @@ const MenuPage = () => {
 };
 
 export default MenuPage;
+
+
+const DishesCards = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 20px;
+`
