@@ -16,6 +16,7 @@ const APIWrapper = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     "Access-Control-Allow-Origin": "http://first_proj.test/api/",
                     "Origin": "http://first_proj.test/api/",
+                //     TODO http://first_proj.test/api/ to .env
                 }}
         }
         const request = new Request(url, config);
