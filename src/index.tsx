@@ -39,12 +39,13 @@ const router = createBrowserRouter([
                 path: "menu",
                 element: (
                     <PrivateRoute>
+
                         <MenuPage />,
                     </PrivateRoute>
                 ),
             },
             {
-                path: 'dishes/:dish',
+                path: 'dishes/:id',
                 element: (
                     <DishFullPage/>
                 ),

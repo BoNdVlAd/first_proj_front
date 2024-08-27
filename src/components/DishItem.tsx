@@ -11,7 +11,7 @@ const DishItem: React.FC<DishItemProps> = ({dish}: any) => {
 
     return (
         <Card>
-            <Link to={`/dishes/${dish.title}`}>
+            <Link to={`/dishes/${dish.id}`}>
                 <Image src={'https://www.pamperedchef.ca/iceberg/com/recipe/1153421-lg.jpg'} />
                 <Title>{dish.title}</Title>
                 <Description>{dish.description}</Description>

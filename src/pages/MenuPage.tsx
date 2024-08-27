@@ -49,7 +49,7 @@ const MenuPage = () => {
                 <Sort setSortField={setSortField} setSortBy={setSortBy} fetchDishes={fetchDishes} />
                 <DishesCards>
                 {dishes.map((dish) => (
-                    <DishItem dish={dish} />
+                    <DishItem key={dish.title} dish={dish} />
                 ))}
                 </DishesCards>
             </ItemsWrapper>

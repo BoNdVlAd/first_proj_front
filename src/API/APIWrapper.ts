@@ -1,5 +1,7 @@
 const APIWrapper = () => {
     const request = async (url: string, config: {}): Promise<any> => {
+
+
         config = {...config, headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -16,9 +18,9 @@ const APIWrapper = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     "Access-Control-Allow-Origin": "http://first_proj.test/api/",
                     "Origin": "http://first_proj.test/api/",
-                //     TODO http://first_proj.test/api/ to .env
                 }}
         }
+        // config={...config, credentials: 'include', withCredentials: true }
         const request = new Request(url, config);
         const response = await fetch(request);
         const data = await response.json();
