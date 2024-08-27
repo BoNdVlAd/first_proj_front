@@ -5,6 +5,7 @@ interface AuthContextType {
     login: (token: string) => void;
     logout: () => void;
     isLoading: boolean;
+    userRole: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,12 +21,14 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [userRole, setUserRole] = useState<string | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
         console.log("TOKEN", token)
         if (token) {
             setIsAuthenticated(true);
+            fetchUserRole(token);
         }
         setIsLoading(false);
     }, []);
@@ -40,10 +43,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setIsAuthenticated(false);
     };
 
+    const fetchUserRole = async (token: string) => {
+        try {
+            const response = await fetch('http://first_proj.test/api/auth/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log("DATA_USER", data);
+                setUserRole(data);
+            } else {
+                console.error("Failed to fetch user role");
+            }
+        } catch (error) {
+            console.error("Error fetching user role", error);
+        }
+    };
+
     console.log("AUTH", isAuthenticated);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout, userRole }}>
             {children}
         </AuthContext.Provider>
     );

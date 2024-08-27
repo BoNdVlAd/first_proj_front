@@ -15,7 +15,7 @@ const APIWrapper = () => {
             config = {...config, headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     "Access-Control-Allow-Origin": "http://first_proj.test/api/",
                     "Origin": "http://first_proj.test/api/",
                 }}
@@ -61,10 +61,9 @@ const APIWrapper = () => {
         return request(url, init);
     }
 
-    const remove = async (url: string, body: {}, config?: {}) => {
+    const remove = async (url: string, config?: {}) => {
         const init = {
             method: "DELETE",
-            body: body,
             ...config
         }
 

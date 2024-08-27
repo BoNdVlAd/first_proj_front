@@ -12,6 +12,7 @@ import MenuPage from "./pages/MenuPage";
 import PrivateRoute from "./pages/PrivateRouter";
 import {AuthProvider} from "./pages/AuthProvider";
 import DishFullPage from "./pages/DishFullPage";
+import ManagePage from "./pages/ManagePage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -49,7 +50,14 @@ const router = createBrowserRouter([
                 element: (
                     <DishFullPage/>
                 ),
+            },
+            {
+                path: 'manage_orders',
+                element: (
+                    <ManagePage/>
+                ),
             }
+
         ],
     },
 ]);
