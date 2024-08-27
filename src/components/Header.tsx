@@ -44,6 +44,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 1000;
 `
 
 const ExitButton = styled.button`
