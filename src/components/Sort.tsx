@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {styled} from "styled-components";
-import debounce from 'lodash.debounce';
 
 interface SortPopupProps {
     setSortField: React.Dispatch<React.SetStateAction<string>>;

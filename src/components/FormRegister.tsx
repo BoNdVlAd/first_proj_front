@@ -2,6 +2,51 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import {Link} from "react-router-dom";
 
+interface RegisterFormProps {
+    onSubmit: (username: string, useremail: string, password: string, ) => void;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
+    const [username, setUsername] = useState('');
+    const [useremail, setUseremail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onSubmit(username, useremail, password);
+    };
+
+    return (
+        <FormContainer onSubmit={handleSubmit}>
+            <FormHeader>Register</FormHeader>
+            <FormBody>
+                <FormLabel>Username</FormLabel>
+                <FormInput
+                    type="text"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                />
+                <FormLabel>Email</FormLabel>
+                <FormInput
+                    type="text"
+                    value={useremail}
+                    onChange={(event) => setUseremail(event.target.value)}
+                />
+                <FormLabel>Password</FormLabel>
+                <FormInput
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+                <FormButton type="submit">Register</FormButton>
+                <Link to="/auth\login">already have an account?</Link>
+            </FormBody>
+        </FormContainer>
+    );
+};
+
+export default RegisterForm;
+
 const FormContainer = styled.form`
     max-width: 500px;
     margin: 40px auto;
@@ -60,48 +105,3 @@ const TextLink = styled.p`
         }
     }
 `;
-
-interface RegisterFormProps {
-    onSubmit: (username: string, useremail: string, password: string, ) => void;
-}
-
-const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
-    const [username, setUsername] = useState('');
-    const [useremail, setUseremail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(username, useremail, password);
-    };
-
-    return (
-        <FormContainer onSubmit={handleSubmit}>
-            <FormHeader>Register</FormHeader>
-            <FormBody>
-                <FormLabel>Username</FormLabel>
-                <FormInput
-                    type="text"
-                    value={username}
-                    onChange={(event) => setUsername(event.target.value)}
-                />
-                <FormLabel>Email</FormLabel>
-                <FormInput
-                    type="text"
-                    value={useremail}
-                    onChange={(event) => setUseremail(event.target.value)}
-                />
-                <FormLabel>Password</FormLabel>
-                <FormInput
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                <FormButton type="submit">Register</FormButton>
-                <Link to="/auth\login">already have an account?</Link>
-            </FormBody>
-        </FormContainer>
-    );
-};
-
-export default RegisterForm;

@@ -1,35 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {styled} from "styled-components";
-
-interface RecipeItem {
-    id: number;
-    qty: number;
-}
-
-interface Dish {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    recipe: RecipeItem[];
-    created_at: string;
-    updated_at: string;
-    order_id: number;
-}
+import {IDish} from "../Interfaces/IDish";
+import { Link } from 'react-router-dom';
 
 interface DishItemProps {
-    dish: Dish;
+    dish: IDish;
 }
 
 const DishItem: React.FC<DishItemProps> = ({dish}: any) => {
 
-
     return (
         <Card>
-            <Image src={'https://www.pamperedchef.ca/iceberg/com/recipe/1153421-lg.jpg'} />
-            <Title>{dish.title}</Title>
-            <Description>{dish.description}</Description>
-            <Price>{dish.price}</Price>
+            <Link to={`/dishes/${dish.title}`}>
+                <Image src={'https://www.pamperedchef.ca/iceberg/com/recipe/1153421-lg.jpg'} />
+                <Title>{dish.title}</Title>
+                <Description>{dish.description}</Description>
+                <Price>{dish.price}</Price>
+            </Link>
         </Card>
     )
 };
