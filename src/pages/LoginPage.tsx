@@ -9,7 +9,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-
     const handleSubmit = async (useremail: string, password: string) => {
         try {
             const body = {

@@ -7,15 +7,7 @@ import Sort from "../components/Sort";
 import DishItem from "../components/DishItem";
 import {styled} from "styled-components";
 import { IDish } from '../Interfaces/IDish'
-
-interface Pagination {
-    total: number;
-    perPage: number;
-    currentPage: number;
-    lastPage: number;
-    from: number;
-    to: number;
-}
+import { IPagination } from "../Interfaces/IPagination";
 
 const MenuPage = () => {
     const api = APIWrapper()
@@ -24,7 +16,7 @@ const MenuPage = () => {
     const [dishes, setDishes] = React.useState<IDish[]>([])
     const [sortField, setSortField] = React.useState<string>('title');
     const [sortBy, setSortBy] = React.useState<string>('asc');
-    const [pagination, setPagination] = React.useState<Pagination>({
+    const [pagination, setPagination] = React.useState<IPagination>({
         total: 0,
         perPage: 1,
         currentPage: 1,

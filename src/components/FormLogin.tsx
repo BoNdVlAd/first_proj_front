@@ -2,6 +2,44 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import {Link} from "react-router-dom";
 
+interface LoginFormProps {
+    onSubmit: (useremail: string, password: string, ) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+    const [useremail, setUseremail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onSubmit(useremail, password);
+    };
+
+    return (
+        <FormContainer onSubmit={handleSubmit}>
+            <FormHeader>Login</FormHeader>
+            <FormBody>
+                <FormLabel>Email</FormLabel>
+                <FormInput
+                    type="text"
+                    value={useremail}
+                    onChange={(event) => setUseremail(event.target.value)}
+                />
+                <FormLabel>Password</FormLabel>
+                <FormInput
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+                <FormButton type="submit">Log in</FormButton>
+                <Link to="/auth\registration">dont have an account?</Link>
+            </FormBody>
+        </FormContainer>
+    );
+};
+
+export default LoginForm;
+
 const FormContainer = styled.form`
     max-width: 500px;
     margin: 40px auto;
@@ -44,43 +82,3 @@ const FormButton = styled.button`
     color: #fff;
     cursor: pointer;
 `;
-
-interface LoginFormProps {
-    onSubmit: (useremail: string, password: string, ) => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-    const [useremail, setUseremail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(useremail, password);
-    };
-
-    return (
-        <FormContainer onSubmit={handleSubmit}>
-            <FormHeader>Login</FormHeader>
-            <FormBody>
-                <FormLabel>Email</FormLabel>
-                <FormInput
-                    type="text"
-                    value={useremail}
-                    onChange={(event) => setUseremail(event.target.value)}
-                />
-                <FormLabel>Password</FormLabel>
-                <FormInput
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                <FormButton type="submit">Log in</FormButton>
-                <Link to="/auth\registration">dont have an account?</Link>
-            </FormBody>
-        </FormContainer>
-    );
-};
-
-
-
-export default LoginForm;

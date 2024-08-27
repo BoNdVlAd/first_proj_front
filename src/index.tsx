@@ -11,6 +11,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MenuPage from "./pages/MenuPage";
 import PrivateRoute from "./pages/PrivateRouter";
 import {AuthProvider} from "./pages/AuthProvider";
+import DishFullPage from "./pages/DishFullPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -38,10 +39,16 @@ const router = createBrowserRouter([
                 path: "menu",
                 element: (
                     <PrivateRoute>
-                        <MenuPage />
+                        <MenuPage />,
                     </PrivateRoute>
                 ),
             },
+            {
+                path: 'dishes/:dish',
+                element: (
+                    <DishFullPage/>
+                ),
+            }
         ],
     },
 ]);

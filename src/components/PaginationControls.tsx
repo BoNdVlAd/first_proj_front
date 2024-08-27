@@ -1,17 +1,8 @@
 import {styled} from "styled-components";
-
-
-interface Pagination {
-    total: number;
-    perPage: number;
-    currentPage: number;
-    lastPage: number;
-    from: number;
-    to: number;
-}
+import {IPagination} from "../Interfaces/IPagination";
 
 interface PaginationControlsProps {
-    pagination: Pagination;
+    pagination: IPagination;
     onPageChange: (page: number) => void;
 }
 
