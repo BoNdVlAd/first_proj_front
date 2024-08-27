@@ -8,12 +8,9 @@ const Wrapper = styled.div`
     padding-top: 4rem;
     background-color: #cccccc;
     flex-direction: column;
-
 `
 
-
 const ItemsWrapper = ({children}: any) => {
-
 
     return (
         <>

@@ -58,4 +58,5 @@ const ExitButton = styled.button`
 
 const RestaurantTitle = styled.h1`
     font-size: 40px;
+    user-select: none;
 `
