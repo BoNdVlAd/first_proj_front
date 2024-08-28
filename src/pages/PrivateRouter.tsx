@@ -8,7 +8,6 @@ interface ProtectedRouteProps {
 
 const PrivateRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const { isAuthenticated, isLoading } = useAuth();
-    console.log("MAIN", isAuthenticated);
 
     if (isLoading) {
         return <div>Loading...</div>;

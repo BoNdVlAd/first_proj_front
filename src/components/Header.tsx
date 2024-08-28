@@ -1,63 +1,67 @@
-import React from 'react';
-import {styled} from "styled-components";
-import Search from "./Search";
-import { MdExitToApp } from "react-icons/md";
-import {Link, useNavigate} from "react-router-dom";
-import {useAuth} from "../pages/AuthProvider";
-import { MdManageAccounts } from "react-icons/md";
+import React from 'react'
+import { styled } from 'styled-components'
+import Search from './Search'
+import { MdExitToApp } from 'react-icons/md'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../pages/AuthProvider'
+import { MdManageAccounts } from 'react-icons/md'
+import Popup from './Popup'
 
 interface HeaderProps {
-    search: string;
-    setSearch: React.Dispatch<React.SetStateAction<string>>;
+    search: string
+    setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Header: React.FC<HeaderProps> = ({search, setSearch}: HeaderProps) => {
-    const { logout } = useAuth();
-    const navigate = useNavigate();
-    const { userRole } = useAuth();
+const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
+    const { logout } = useAuth()
+    const navigate = useNavigate()
+    const { userRole } = useAuth()
 
     const manageHandler = () => {
         navigate('/manage_orders')
     }
 
     const logoutHandler = () => {
-        logout();
+        logout()
         navigate('/auth/login')
     }
-    console.log('HEADER_ROLE', userRole)
+
     return (
         <>
             <HeaderWrapper>
-                <ExitButton onClick={logoutHandler}>
-                    <MdExitToApp/>
-                </ExitButton>
-                <RestaurantTitle >
-                    Restaurant
-                </RestaurantTitle>
-                <Search search={search} setSearch={setSearch}/>
-                <h2>{userRole}</h2>
-                {
-                    userRole === 'manager' && (
+                <Container>
+                    <ExitButton onClick={logoutHandler}>
+                        <MdExitToApp />
+                    </ExitButton>
+                    <RestaurantTitle>Restaurant</RestaurantTitle>
+                    <Search search={search} setSearch={setSearch} />
+                    {userRole === 'manager' ||
+                        userRole === 'chef' ||
+                        (userRole === 'waiter' && (
+                            <ManageButton onClick={manageHandler}>
+                                <MdManageAccounts />
+                            </ManageButton>
+                        ))}
+                    <Popup />
+                    <h2>{userRole}</h2>
+                    {userRole === 'manager' && (
                         <ManageButton onClick={manageHandler}>
                             <MdManageAccounts />
                         </ManageButton>
-                    )
-                }
+                    )}
+                </Container>
             </HeaderWrapper>
         </>
-    );
-};
+    )
+}
 
-export default Header;
+export default Header
 
 const HeaderWrapper = styled.div`
     width: 100%;
     height: 4rem;
     position: fixed;
     background: #224870;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     z-index: 1000;
 `
 
@@ -84,4 +88,12 @@ const ManageButton = styled.div`
     &:hover {
         opacity: 0.5;
     }
-    `
+`
+const Container = styled.div`
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
