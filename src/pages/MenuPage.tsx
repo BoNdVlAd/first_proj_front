@@ -8,6 +8,8 @@ import DishItem from '../components/DishItem'
 import { styled } from 'styled-components'
 import { IDish } from '../Interfaces/IDish'
 import { IPagination } from '../Interfaces/IPagination'
+import { useDispatch } from 'react-redux'
+import { setDishesItems } from '../redux/slices/dishesSlice'
 
 const MenuPage = () => {
     const api = APIWrapper()
@@ -25,11 +27,14 @@ const MenuPage = () => {
         to: 0,
     })
 
+    const dispatch = useDispatch()
+
     const fetchDishes = async () => {
         try {
             const data = await api.get(
                 `dishes?page=${pagination.currentPage}&title=${searchValue}&sortField=${sortField}&sortBy=${sortBy}`
             )
+            dispatch(setDishesItems(data.data.data))
             setDishes(data.data.data)
             setPagination(data.data.pagination)
         } catch (e) {

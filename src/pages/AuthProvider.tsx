@@ -58,7 +58,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             })
             if (response.ok) {
                 const data = await response.json()
-                console.log('DATA_USER', data)
                 setUserRole(data)
             } else {
                 console.error('Failed to fetch user role')

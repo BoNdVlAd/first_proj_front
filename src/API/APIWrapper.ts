@@ -5,8 +5,7 @@ const APIWrapper = () => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':
-                    process.env.REACT_APP_BACKEND_URL,
+
                 Origin: process.env.REACT_APP_BACKEND_URL,
             },
         }
@@ -19,18 +18,18 @@ const APIWrapper = () => {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    'Access-Control-Allow-Origin':
-                        process.env.REACT_APP_BACKEND_URL,
+                    // 'Access-Control-Allow-Origin':
+                    //     process.env.REACT_APP_BACKEND_URL,
                     Origin: process.env.REACT_APP_BACKEND_URL,
                 },
             }
         }
-        // config = {
-        //     ...config,
-        //     credentials: 'include',
-        //     withCredentials: true,
-        //     origin: 'http://localhost:3006',
-        // }
+        config = {
+            ...config,
+            // credentials: 'include',
+            // withCredentials: true,
+            origin: 'http://localhost:3006',
+        }
         const request = new Request(url, config)
         const response = await fetch(request)
         const data = await response.json()
