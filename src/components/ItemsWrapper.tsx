@@ -1,16 +1,15 @@
-import React from 'react';
-import {styled} from "styled-components";
+import React from 'react'
+import { styled } from 'styled-components'
 
-const ItemsWrapper = ({children}: any) => {
-
+const ItemsWrapper = ({ children }: any) => {
     return (
         <>
             <Wrapper>{children}</Wrapper>
         </>
-    );
-};
+    )
+}
 
-export default ItemsWrapper;
+export default ItemsWrapper
 
 const Wrapper = styled.div`
     display: flex;

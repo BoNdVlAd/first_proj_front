@@ -1,14 +1,7 @@
-import React from 'react';
-
+import React from 'react'
 
 const HomePage = () => {
+    return <>NotFound</>
+}
 
-
-    return (
-        <>
-            NotFound
-        </>
-    );
-};
-
-export default HomePage;
+export default HomePage

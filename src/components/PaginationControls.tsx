@@ -1,13 +1,16 @@
-import {styled} from "styled-components";
-import {IPagination} from "../Interfaces/IPagination";
+import { styled } from 'styled-components'
+import { IPagination } from '../Interfaces/IPagination'
 
 interface PaginationControlsProps {
-    pagination: IPagination;
-    onPageChange: (page: number) => void;
+    pagination: IPagination
+    onPageChange: (page: number) => void
 }
 
-const PaginationControls: React.FC<PaginationControlsProps> = ({ pagination, onPageChange }) => {
-    const { currentPage, lastPage } = pagination;
+const PaginationControls: React.FC<PaginationControlsProps> = ({
+    pagination,
+    onPageChange,
+}) => {
+    const { currentPage, lastPage } = pagination
 
     return (
         <div>
@@ -27,11 +30,10 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ pagination, onP
                 {'>'}
             </ButtonArrow>
         </div>
-    );
-};
+    )
+}
 
-export default PaginationControls;
-
+export default PaginationControls
 
 const ButtonArrow = styled.button`
     width: 3rem;
@@ -46,5 +48,4 @@ const ButtonArrow = styled.button`
         color: #224870;
         background: #cbdafa;
     }
-
 `
