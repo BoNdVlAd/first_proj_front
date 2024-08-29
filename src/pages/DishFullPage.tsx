@@ -4,13 +4,11 @@ import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 import APIWrapper from '../API/APIWrapper'
 import { IDish } from '../Interfaces/IDish'
-import { useNavigate } from 'react-router-dom'
 import ButtonBack from '../components/ButtonBack'
 
 const DishFullPage = () => {
     const { id } = useParams()
     const api = APIWrapper()
-    const navigate = useNavigate()
 
     const [searchValue, setSearchValue] = useState<string>('')
     const [dishes, setDishes] = React.useState<IDish>()

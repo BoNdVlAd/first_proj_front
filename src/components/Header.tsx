@@ -2,10 +2,12 @@ import React from 'react'
 import { styled } from 'styled-components'
 import Search from './Search'
 import { MdExitToApp } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../pages/AuthProvider'
 import { MdManageAccounts } from 'react-icons/md'
 import Popup from './Popup'
+import { FaShoppingCart } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 interface HeaderProps {
     search: string
@@ -16,6 +18,11 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
     const { logout } = useAuth()
     const navigate = useNavigate()
     const { userRole } = useAuth()
+
+    const items = useSelector((state: any) => state.cart.items)
+
+    const location = useLocation()
+    console.log(location)
 
     const manageHandler = () => {
         navigate('/manage_orders')
@@ -43,6 +50,14 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
                             </ManageButton>
                         ))}
                     <Popup />
+                    <Link to={`/cart`}>
+                        <CartWrapper>
+                            <Cart>
+                                <FaShoppingCart />
+                            </Cart>
+                            <AmountGoods>{items.length}</AmountGoods>
+                        </CartWrapper>
+                    </Link>
                     <h2>{userRole}</h2>
                     {userRole === 'manager' && (
                         <ManageButton onClick={manageHandler}>
@@ -96,4 +111,23 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+`
+
+const Cart = styled.div`
+    color: #000;
+    font-size: 30px;
+    &:hover {
+        opacity: 0.5;
+    }
+`
+
+const AmountGoods = styled.p`
+    color: #fff;
+    position: absolute;
+    right: -8px;
+    top: 0;
+`
+
+const CartWrapper = styled.div`
+    position: relative;
 `

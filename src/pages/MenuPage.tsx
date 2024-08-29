@@ -37,6 +37,7 @@ const MenuPage = () => {
             dispatch(setDishesItems(data.data.data))
             setDishes(data.data.data)
             setPagination(data.data.pagination)
+            console.log('FETCH')
         } catch (e) {
             console.log('Error: ', e)
         }
@@ -45,8 +46,6 @@ const MenuPage = () => {
     React.useEffect(() => {
         fetchDishes()
     }, [pagination.currentPage, searchValue])
-
-    console.log(dishes)
 
     return (
         <>

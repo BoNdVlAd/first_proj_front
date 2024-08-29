@@ -24,11 +24,9 @@ const ManagePage = () => {
         from: 0,
         to: 0,
     })
-    const navigate = useNavigate()
 
     const updateOrder = async (order: any, orderId: number): Promise<void> => {
         try {
-            console.log('UPDATEDORDER', order)
             const body = {
                 payment_method: order.payment_method,
                 total_price: Number(order.total_price),

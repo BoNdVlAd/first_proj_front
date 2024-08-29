@@ -106,7 +106,6 @@ const OrderItem: React.FC<OrderItemProps> = ({
                     allDishes.find((obj: { id: number }) => obj.id === dish.id)
                         .price * dish.qty
             })
-            console.log(dishes)
             setTotalPrice(res)
         }
     }, [dishes])

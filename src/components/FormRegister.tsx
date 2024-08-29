@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { styled } from 'styled-components';
-import {Link} from "react-router-dom";
+import React, { useState } from 'react'
+import { styled } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 interface RegisterFormProps {
-    onSubmit: (username: string, useremail: string, password: string, ) => void;
+    onSubmit: (username: string, useremail: string, password: string) => void
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
-    const [username, setUsername] = useState('');
-    const [useremail, setUseremail] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('')
+    const [useremail, setUseremail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(username, useremail, password);
-    };
+        event.preventDefault()
+        onSubmit(username, useremail, password)
+    }
 
     return (
         <FormContainer onSubmit={handleSubmit}>
@@ -42,10 +42,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
                 <Link to="/auth\login">already have an account?</Link>
             </FormBody>
         </FormContainer>
-    );
-};
+    )
+}
 
-export default RegisterForm;
+export default RegisterForm
 
 const FormContainer = styled.form`
     max-width: 500px;
@@ -53,11 +53,9 @@ const FormContainer = styled.form`
     padding: 40px;
     border: 1px solid #000;
     border-radius: 10px;
-    
-`;
+`
 
-const FormHeader = styled.h2`
-`;
+const FormHeader = styled.h2``
 
 const FormBody = styled.div`
     display: flex;
@@ -65,11 +63,9 @@ const FormBody = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-top: 20px;
-`;
+`
 
-const FormLabel = styled.label`
-`;
-
+const FormLabel = styled.label``
 
 const FormInput = styled.input`
     height: 40px;
@@ -77,18 +73,18 @@ const FormInput = styled.input`
     border: 1px solid #000;
     border-radius: 5px;
     font-size: 20px;
-`;
+`
 
 const FormButton = styled.button`
     width: 100%;
     height: 50px;
     padding: 10px;
-    background: #88D66C;
+    background: #88d66c;
     border: none;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-`;
+`
 
 const TextLink = styled.p`
     margin-top: 20px;
@@ -96,7 +92,7 @@ const TextLink = styled.p`
     font-size: 16px;
 
     a {
-        color: #88D66C;
+        color: #88d66c;
         text-decoration: none;
         font-weight: bold;
 
@@ -104,4 +100,4 @@ const TextLink = styled.p`
             text-decoration: underline;
         }
     }
-`;
+`

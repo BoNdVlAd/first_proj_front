@@ -26,8 +26,8 @@ const APIWrapper = () => {
         }
         config = {
             ...config,
-            // credentials: 'include',
-            // withCredentials: true,
+            credentials: 'include',
+            withCredentials: true,
             origin: 'http://localhost:3006',
         }
         const request = new Request(url, config)

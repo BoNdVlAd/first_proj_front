@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { styled } from 'styled-components';
-import {Link} from "react-router-dom";
+import React, { useState } from 'react'
+import { styled } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 interface LoginFormProps {
-    onSubmit: (useremail: string, password: string, ) => void;
+    onSubmit: (useremail: string, password: string) => void
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-    const [useremail, setUseremail] = useState('');
-    const [password, setPassword] = useState('');
+    const [useremail, setUseremail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSubmit(useremail, password);
-    };
+        event.preventDefault()
+        onSubmit(useremail, password)
+    }
 
     return (
         <FormContainer onSubmit={handleSubmit}>
@@ -35,10 +35,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 <Link to="/auth\registration">dont have an account?</Link>
             </FormBody>
         </FormContainer>
-    );
-};
+    )
+}
 
-export default LoginForm;
+export default LoginForm
 
 const FormContainer = styled.form`
     max-width: 500px;
@@ -46,11 +46,9 @@ const FormContainer = styled.form`
     padding: 40px;
     border: 1px solid #000;
     border-radius: 10px;
-    
-`;
+`
 
-const FormHeader = styled.h2`
-`;
+const FormHeader = styled.h2``
 
 const FormBody = styled.div`
     display: flex;
@@ -58,11 +56,9 @@ const FormBody = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-top: 20px;
-`;
+`
 
-const FormLabel = styled.label`
-`;
-
+const FormLabel = styled.label``
 
 const FormInput = styled.input`
     height: 40px;
@@ -70,15 +66,15 @@ const FormInput = styled.input`
     border: 1px solid #000;
     border-radius: 5px;
     font-size: 20px;
-`;
+`
 
 const FormButton = styled.button`
     width: 100%;
     height: 50px;
     padding: 10px;
-    background: #88D66C;
+    background: #88d66c;
     border: none;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-`;
+`
