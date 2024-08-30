@@ -16,6 +16,7 @@ import ManagePage from './pages/ManagePage'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import CartPage from './pages/CartPage'
+import PaymentPage from './pages/PaymentPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path: 'cart',
                 element: <CartPage />,
+            },
+            {
+                path: 'payment',
+                element: <PaymentPage />,
             },
         ],
     },
