@@ -1,32 +1,24 @@
 import React from 'react'
 import { styled } from 'styled-components'
 import { IGood } from '../Interfaces/IGood'
-import { useDispatch } from 'react-redux'
-import { addItem, removeItem } from '../redux/slices/cartSlice'
+import ChangeAmount from './ChangeAmount'
 
 interface GoodItemProps {
     good: IGood
 }
 
 const GoodPage: React.FC<GoodItemProps> = ({ good }) => {
-    const dispatch = useDispatch()
-
-    const handleAddAmount = () => {
-        dispatch(addItem(good))
-    }
-
-    const handleRemoveAmount = () => {
-        dispatch(removeItem(good))
-    }
+    const sumPrice = good.count * good.price
 
     return (
         <>
             <GoodCard>
                 <GoodTitle>{good.title}</GoodTitle>
                 <GoodPrice>{good.price}</GoodPrice>
-                <AmountButton onClick={handleRemoveAmount}>-</AmountButton>
-                <GoodCount>{good.count}</GoodCount>
-                <AmountButton onClick={handleAddAmount}>+</AmountButton>
+                <GoodItem>
+                    <ChangeAmount good={good} />
+                </GoodItem>
+                <SumPrice>{sumPrice}</SumPrice>
             </GoodCard>
         </>
     )
@@ -38,15 +30,28 @@ const GoodCard = styled.div`
     width: 90%;
     background-color: #fff;
     margin: 0 auto;
-    display: flex;
     border-radius: 20px;
     gap: 40px;
+    display: flex;
+    align-items: center;
 `
 
-const GoodTitle = styled.p``
+const GoodTitle = styled.p`
+    max-width: 20rem;
+    flex: 1;
+`
 
-const GoodPrice = styled.p``
+const GoodPrice = styled.p`
+    max-width: 20rem;
+    flex: 1;
+`
 
-const GoodCount = styled.p``
+const SumPrice = styled.p`
+    max-width: 20rem;
+    flex: 1;
+`
 
-const AmountButton = styled.button``
+const GoodItem = styled.div`
+    max-width: 20rem;
+    flex: 1;
+`

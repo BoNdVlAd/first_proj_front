@@ -48,9 +48,24 @@ export const cartSlice = createSlice({
                 return x + y.count * y.price
             }, 0)
         },
+        setItems(state, action) {
+            state.items = action.payload
+            state.totalPrice = state.items.reduce((x, y) => {
+                return x + y.count * y.price
+            }, 0)
+        },
+        removeItems(state, action) {
+            state.items = state.items.filter(
+                (obj) => obj.id != action.payload.id
+            )
+
+            state.totalPrice = state.items.reduce((x, y) => {
+                return x + y.count * y.price
+            }, 0)
+        },
     },
 })
 
-export const { addItem, removeItem } = cartSlice.actions
+export const { addItem, removeItem, setItems, removeItems } = cartSlice.actions
 
 export default cartSlice.reducer

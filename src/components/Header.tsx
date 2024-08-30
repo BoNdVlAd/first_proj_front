@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from 'styled-components'
 import Search from './Search'
 import { MdExitToApp } from 'react-icons/md'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../pages/AuthProvider'
 import { MdManageAccounts } from 'react-icons/md'
 import Popup from './Popup'
@@ -15,14 +15,12 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
+    const [amountChange, setAmountChange] = React.useState<boolean>(false)
     const { logout } = useAuth()
     const navigate = useNavigate()
     const { userRole } = useAuth()
 
     const items = useSelector((state: any) => state.cart.items)
-
-    const location = useLocation()
-    console.log(location)
 
     const manageHandler = () => {
         navigate('/manage_orders')
@@ -32,6 +30,17 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
         logout()
         navigate('/auth/login')
     }
+
+    const amountOfGoods: number = items.reduce((acc: any, cur: any) => {
+        return acc + cur.count
+    }, 0)
+
+    React.useEffect(() => {
+        setAmountChange(true)
+        setTimeout(() => {
+            setAmountChange(false)
+        }, 500)
+    }, [items])
 
     return (
         <>
@@ -55,7 +64,11 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
                             <Cart>
                                 <FaShoppingCart />
                             </Cart>
-                            <AmountGoods>{items.length}</AmountGoods>
+                            <AmountGoods
+                                className={amountChange ? 'increse' : ''}
+                            >
+                                {amountOfGoods}
+                            </AmountGoods>
                         </CartWrapper>
                     </Link>
                     <h2>{userRole}</h2>
@@ -126,6 +139,10 @@ const AmountGoods = styled.p`
     position: absolute;
     right: -8px;
     top: 0;
+    transition: all ease 0.3s;
+    &.increse {
+        transform: scale(1.2);
+    }
 `
 
 const CartWrapper = styled.div`

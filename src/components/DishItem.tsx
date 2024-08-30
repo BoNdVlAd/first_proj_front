@@ -3,15 +3,20 @@ import { styled, keyframes } from 'styled-components'
 import { IDish } from '../Interfaces/IDish'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../redux/slices/cartSlice'
+import { addItem, removeItems } from '../redux/slices/cartSlice'
 import { removeItem } from '../redux/slices/cartSlice'
 import { RootState } from '../redux/store'
+import ChangeAmount from './ChangeAmount'
+import {
+    removeItemsFromLocalStorage,
+    setToLocalStorage,
+} from '../utils/Localhost'
 
 interface DishItemProps {
     dish: IDish
 }
 
-const DishItem: React.FC<DishItemProps> = ({ dish }: any) => {
+const DishItem: React.FC<DishItemProps> = ({ dish }) => {
     const [isFlying, setIsFlying] = useState(false)
     const [bought, setBought] = useState<boolean>(false)
 
@@ -25,8 +30,10 @@ const DishItem: React.FC<DishItemProps> = ({ dish }: any) => {
             setIsFlying(false)
         }, 1000)
         if (items.find((obj) => obj.id === dish.id)) {
-            dispatch(removeItem(dish))
+            removeItemsFromLocalStorage({ dish })
+            dispatch(removeItems(dish))
         } else {
+            setToLocalStorage({ dish })
             dispatch(addItem(dish))
         }
         setBought(!bought)
@@ -44,7 +51,13 @@ const DishItem: React.FC<DishItemProps> = ({ dish }: any) => {
                     <Title>{dish.title}</Title>
                     <Description>{dish.description}</Description>
                     <Price>{dish.price}</Price>
+                    {items.find((obj) => obj.id === dish.id) && (
+                        <ChangeAmount
+                            good={items.find((obj) => obj.id === dish.id)}
+                        />
+                    )}
                 </Content>
+
                 <ButtonComponent onClick={handleBuyClick}>
                     {items.find((obj) => obj.id === dish.id)
                         ? 'cancel purchase'
@@ -70,7 +83,7 @@ const Card = styled.div`
     padding: 16px;
     max-width: 330px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 570px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     position: relative;
