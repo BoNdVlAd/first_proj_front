@@ -3,6 +3,7 @@ import APIWrapper from '../API/APIWrapper'
 import LoginForm from '../components/FormLogin'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthProvider'
+import TwoFactorForm from '../components/TwoFactorForm'
 
 const LoginPage = () => {
     const api = APIWrapper()
@@ -18,7 +19,7 @@ const LoginPage = () => {
             const response = await api.post('auth/login', body)
             if (response.status === 200) {
                 login(response.data.access_token)
-                navigate('/menu')
+                navigate('/two_factor_auth')
             } else {
                 console.log('Login failed: ', response)
             }

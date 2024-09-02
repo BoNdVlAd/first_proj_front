@@ -18,7 +18,9 @@ const Popup = () => {
                     </DropdownButton>
                     {dropdownOpen && (
                         <DropdownContent>
-                            <DropdownLink to={'/menu'}>Orders</DropdownLink>
+                            <DropdownLink to={'/manage_orders'}>
+                                Orders
+                            </DropdownLink>
                             <DropdownLink to={'/menu'}>Users</DropdownLink>
                             <DropdownLink to={'/menu'}>
                                 Restaurants

@@ -22,7 +22,7 @@ const RegistrationPage: React.FC = () => {
             if (response.status === 200) {
                 navigate('/menu')
             } else {
-                console.log('Login failed: ', response)
+                console.log('Registr failed: ', response)
             }
         } catch (e) {
             console.log('Error: ', e)

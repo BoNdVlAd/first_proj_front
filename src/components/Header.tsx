@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
     const items = useSelector((state: any) => state.cart.items)
 
     const manageHandler = () => {
-        navigate('/manage_orders')
+        navigate('/profile')
     }
 
     const logoutHandler = () => {
@@ -72,11 +72,9 @@ const Header: React.FC<HeaderProps> = ({ search, setSearch }: HeaderProps) => {
                         </CartWrapper>
                     </Link>
                     <h2>{userRole}</h2>
-                    {userRole === 'manager' && (
-                        <ManageButton onClick={manageHandler}>
-                            <MdManageAccounts />
-                        </ManageButton>
-                    )}
+                    <ManageButton onClick={manageHandler}>
+                        <MdManageAccounts />
+                    </ManageButton>
                 </Container>
             </HeaderWrapper>
         </>
@@ -93,7 +91,7 @@ const HeaderWrapper = styled.div`
     z-index: 1000;
 `
 
-const ExitButton = styled.button`
+const ExitButton = styled.a`
     font-size: 3rem;
     background-color: transparent;
     border: none;

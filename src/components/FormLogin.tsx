@@ -3,6 +3,7 @@ import { styled } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { FaRegEye } from 'react-icons/fa'
 import { FaRegEyeSlash } from 'react-icons/fa'
+import { useAuth } from '../pages/AuthProvider'
 
 interface LoginFormProps {
     onSubmit: (useremail: string, password: string) => void
