@@ -25,7 +25,7 @@ const PaymentPage = () => {
             }
             const response = await api.post(`payment/${params.id}`, body)
             if (response.status === 200) {
-                console.log(response)
+                console.log('Response: ', response)
             } else {
                 console.log('Payment failed: ', response)
             }
