@@ -25,7 +25,11 @@ export const removeFromLocalStorage = ({ dish }: any) => {
         data = JSON.parse(data)
         const index = data.findIndex((element: any) => element.id === dish.id)
         if (index !== -1) {
-            data[index].count--
+            if (dish.count > 1) {
+                data[index].count--
+            } else {
+                data.splice(index, 1)
+            }
             localStorage.setItem('goods', JSON.stringify(data))
         }
     }

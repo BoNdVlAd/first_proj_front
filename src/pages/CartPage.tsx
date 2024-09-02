@@ -43,7 +43,7 @@ const CartPage = () => {
                             <p>total price</p>
                             <p>{totalPrice}</p>
                         </PriceFlex>
-                        <OrderButton />
+                        <OrderButton goods={items} totalPrice={totalPrice} />
                     </GoodsList>
                 </Wrapper>
             </Container>

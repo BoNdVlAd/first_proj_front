@@ -2,12 +2,46 @@ import React from 'react'
 import { styled } from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 
-const OrderButton = () => {
+import { IGood } from '../Interfaces/IGood'
+import APIWrapper from '../API/APIWrapper'
+
+interface OrderButtonProps {
+    goods: IGood[]
+    totalPrice: number
+}
+
+const OrderButton: React.FC<OrderButtonProps> = ({ goods, totalPrice }) => {
     const navigate = useNavigate()
+    const api = APIWrapper()
+
+    const orderDishes = goods.map((good) => ({
+        id: good.id,
+        qty: good.count,
+    }))
+
+    const handleCreateOrder = async () => {
+        try {
+            const body = {
+                payment_method: 'cash',
+                status: false,
+                total_price: totalPrice,
+                dishes: orderDishes,
+            }
+            const response = await api.post('orders', body)
+            if (response.status === 200) {
+                const orderId = response.data.id
+                navigate(`/payment/${orderId}`)
+            } else {
+                console.log('Creating order failed: ', response)
+            }
+        } catch (e) {
+            console.log('Error: ', e)
+        }
+    }
 
     return (
         <>
-            <OrderButtonComponent onClick={() => navigate('/payment')}>
+            <OrderButtonComponent onClick={handleCreateOrder}>
                 place an order
             </OrderButtonComponent>
         </>
