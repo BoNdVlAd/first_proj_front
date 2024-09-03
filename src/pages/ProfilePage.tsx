@@ -5,18 +5,23 @@ import { styled } from 'styled-components'
 import MakeTwoFactorAuth from '../components/MakeTwoFactorAuth'
 import APIWrapper from '../API/APIWrapper'
 import ButtonBack from '../components/ButtonBack'
+import ChangePassword from '../components/ChangePassword'
 
 const ProfilePage = () => {
     const [searchValue, setSearchValue] = useState<string>('')
     const { user } = useAuth()
     const [showTwoFactorAuth, setShowTwoFactorAuth] = useState<boolean>(false)
     const [isEditing, setIsEditing] = useState<boolean>(false)
-    const [editedName, setEditedName] = useState<string>(user.name || '')
-    const [editedEmail, setEditedEmail] = useState<string>(user.email || '')
-    const [editedPassword, setEditedPassword] = useState<string>(
-        user.password || ''
-    )
+    const [editedName, setEditedName] = useState<string>(user?.name || '')
+    const [editedEmail, setEditedEmail] = useState<string>(user?.email || '')
     const api = APIWrapper()
+
+    React.useEffect(() => {
+        if (user) {
+            setEditedName(user.name)
+            setEditedEmail(user.email)
+        }
+    }, [user])
 
     const handleAddAuthorization = () => {
         setShowTwoFactorAuth(!showTwoFactorAuth)
@@ -35,10 +40,10 @@ const ProfilePage = () => {
         const body = {
             name: editedName,
             email: editedEmail,
-            password: editedPassword,
         }
-        await api.patch('update-user-profile', body)
+        await api.patch('users/update', body)
         setIsEditing(false)
+        // window.location.reload()
     }
 
     return (
@@ -46,8 +51,8 @@ const ProfilePage = () => {
             <Container>
                 <Header search={searchValue} setSearch={setSearchValue} />
                 <Wrapper>
+                    <ButtonBack />
                     <UserWrapper>
-                        <ButtonBack />
                         {isEditing ? (
                             <>
                                 <Label>
@@ -81,13 +86,18 @@ const ProfilePage = () => {
                             </>
                         ) : (
                             <>
-                                <Text>User name: {user?.name}</Text>
-                                <Text>User email: {user?.email}</Text>
+                                <Text>
+                                    User name: {editedName || user?.name}
+                                </Text>
+                                <Text>
+                                    User email: {editedEmail || user?.email}
+                                </Text>
                                 <EditButton onClick={toggleEditMode}>
                                     Edit
                                 </EditButton>
                             </>
                         )}
+                        <ChangePassword />
                         <h2>Two Factor Authorization</h2>
                         <TwoFactorAuthBlock>
                             {user?.google2fa_secret ? (
@@ -125,6 +135,7 @@ const Wrapper = styled.div`
     border-radius: 20px;
     margin: 2rem auto;
     width: 80%;
+    position: relative;
 `
 
 const UserWrapper = styled.div`
