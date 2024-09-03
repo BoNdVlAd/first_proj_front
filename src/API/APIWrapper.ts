@@ -5,7 +5,6 @@ const APIWrapper = () => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-
                 Origin: process.env.REACT_APP_BACKEND_URL,
             },
         }
@@ -18,8 +17,6 @@ const APIWrapper = () => {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    // 'Access-Control-Allow-Origin':
-                    //     process.env.REACT_APP_BACKEND_URL,
                     Origin: process.env.REACT_APP_BACKEND_URL,
                 },
             }

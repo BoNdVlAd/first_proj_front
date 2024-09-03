@@ -17,6 +17,8 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import CartPage from './pages/CartPage'
 import PaymentPage from './pages/PaymentPage'
+import TwoFactorAuthPage from './pages/TwoFactorAuthPage'
+import ProfilePage from './pages/ProfilePage'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
             {
                 path: 'payment/:id',
                 element: <PaymentPage />,
+            },
+            {
+                path: 'two_factor_auth',
+                element: <TwoFactorAuthPage />,
+            },
+            {
+                path: 'profile',
+                element: <ProfilePage />,
             },
         ],
     },
